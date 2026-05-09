@@ -10,7 +10,7 @@ import com.example.techstore.model.Producto;
 import com.example.techstore.repository.CategoriaRepository;
 
 @Service
-public class CategoriaServices {
+public class CategoriaService {
 
     @Autowired
     private CategoriaRepository categoriaRepository;

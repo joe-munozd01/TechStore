@@ -10,7 +10,7 @@ import com.example.techstore.model.Producto;
 import com.example.techstore.repository.MarcaRepository;
 
 @Service
-public class MarcaServices {
+public class MarcaService {
 
     @Autowired
     private MarcaRepository marcaRepository;
@@ -29,6 +29,10 @@ public class MarcaServices {
             .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
         
         return convertirADTO(marca);
+    }
+
+    public Marca guardar(Marca marca) {
+        return marcaRepository.save(marca);
     }
 
     private MarcaDTO convertirADTO(Marca marca) {

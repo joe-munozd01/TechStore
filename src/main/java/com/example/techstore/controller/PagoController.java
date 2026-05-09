@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.techstore.DTO.PagoDTO;
 import com.example.techstore.model.Pago;
-import com.example.techstore.services.PagoService;
+import com.example.techstore.service.PagoService;
 
 @RestController
 @RequestMapping("/api/v1/pagos")

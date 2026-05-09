@@ -1,4 +1,4 @@
-package com.example.techstore.services;
+package com.example.techstore.service;
 
 import java.util.ArrayList;
 import java.util.List;

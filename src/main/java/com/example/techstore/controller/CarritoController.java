@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.techstore.DTO.CarritoDTO;
 import com.example.techstore.model.Carrito;
-import com.example.techstore.services.CarritoService;
+import com.example.techstore.service.CarritoService;
 
 @RestController
 @RequestMapping("/api/v1/carritos")

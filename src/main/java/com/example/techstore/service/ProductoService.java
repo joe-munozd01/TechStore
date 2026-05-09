@@ -8,7 +8,7 @@ import com.example.techstore.model.Producto;
 import com.example.techstore.repository.ProductoRepository;
 
 @Service
-public class ProductoServices {
+public class ProductoService {
 
     @Autowired
     public ProductoRepository productoRepository;

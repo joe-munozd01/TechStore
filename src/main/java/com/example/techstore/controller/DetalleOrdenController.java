@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.techstore.DTO.DetalleOrdenDTO;
 import com.example.techstore.model.DetalleOrden;
-import com.example.techstore.services.DetalleOrdenService;
+import com.example.techstore.service.DetalleOrdenService;
 
 @RestController
 @RequestMapping("/api/v1/detalle-orden")

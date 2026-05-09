@@ -1,5 +1,5 @@
 package com.example.techstore.controller;
 
-public class TechController {
+public class CategoriaController {
 
 }

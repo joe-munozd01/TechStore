@@ -6,5 +6,4 @@ import com.example.techstore.model.Carrito;
 
 @Repository
 public interface CarritoRepository extends JpaRepository<Carrito, Integer>{
-
 }

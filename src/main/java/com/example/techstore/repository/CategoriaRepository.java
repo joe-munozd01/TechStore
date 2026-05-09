@@ -6,5 +6,4 @@ import com.example.techstore.model.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
-
 }

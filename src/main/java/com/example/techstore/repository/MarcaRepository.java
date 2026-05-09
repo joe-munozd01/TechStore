@@ -6,5 +6,4 @@ import com.example.techstore.model.Marca;
 
 @Repository
 public interface MarcaRepository extends JpaRepository<Marca, Integer> {
-
 }

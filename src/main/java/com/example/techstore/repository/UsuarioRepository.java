@@ -6,5 +6,4 @@ import com.example.techstore.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
-
 }

@@ -2,10 +2,8 @@ package com.example.techstore.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.techstore.DTO.MarcaDTO;
 import com.example.techstore.model.Marca;
 import com.example.techstore.model.Producto;
@@ -50,9 +48,6 @@ public class MarcaServices {
         }else{
             dto.setNombresProductos(new ArrayList<>());
         }
-
         return dto;
-
     }
-
 }

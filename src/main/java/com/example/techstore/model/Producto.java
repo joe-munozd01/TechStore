@@ -1,7 +1,5 @@
 package com.example.techstore.model;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,6 +46,4 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "marca_id")
     private Marca marca;
-
-
 }

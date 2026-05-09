@@ -2,10 +2,8 @@ package com.example.techstore.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.techstore.DTO.CategoriaDTO;
 import com.example.techstore.model.Categoria;
 import com.example.techstore.model.Producto;
@@ -59,7 +57,5 @@ public class CategoriaServices {
         }
 
         return dto;
-
     }
-
 }

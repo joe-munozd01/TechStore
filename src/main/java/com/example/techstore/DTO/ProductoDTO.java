@@ -1,5 +1,4 @@
 package com.example.techstore.DTO;
-
 import lombok.Data;
 
 @Data
@@ -12,5 +11,4 @@ public class ProductoDTO {
     private Integer idMarca;
     private String nombreCategoria;
     private String nombreMarca;
-
 }

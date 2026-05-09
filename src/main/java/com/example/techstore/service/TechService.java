@@ -2,7 +2,6 @@ package com.example.techstore.service;
 
 
 import org.springframework.stereotype.Service;
-
 import com.example.techstore.DTO.ProductoDTO;
 import com.example.techstore.model.Categoria;
 import com.example.techstore.model.Marca;
@@ -42,6 +41,4 @@ public class TechService {
 
         return productoRepository.save(nuevoProducto);
     }
-
-
 }

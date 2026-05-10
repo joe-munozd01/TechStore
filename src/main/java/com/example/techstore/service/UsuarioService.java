@@ -23,15 +23,18 @@ public class UsuarioService {
     }
 
     public UsuarioDTO buscarPorId(Integer id){
-
+        log.info("Buscando usuarios por el ID {}", id);
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> { 
+                    log.error("ERROR: No se encontro el usuario por el ID {}", id);
+                    return new RuntimeException("Usuario no encontrado");
+                });
 
         return convertirADTO(usuario);
     }
 
     public Usuario guardar(Usuario usuario){
-
+        log.info("Guardando un nuevo usuario...");
         return usuarioRepository.save(usuario);
     }
 

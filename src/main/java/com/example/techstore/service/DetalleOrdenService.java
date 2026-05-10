@@ -7,6 +7,9 @@ import com.example.techstore.DTO.DetalleOrdenDTO;
 import com.example.techstore.model.DetalleOrden;
 import com.example.techstore.repository.DetalleOrdenRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class DetalleOrdenService {
 
@@ -14,22 +17,25 @@ public class DetalleOrdenService {
     private DetalleOrdenRepository detalleOrdenRepository;
 
     public List<DetalleOrdenDTO> obtenerTodos(){
-
+        log.info("Consultando detalles en la base de datos");
         return detalleOrdenRepository.findAll().stream()
                 .map(this::convertirADTO)
                 .toList();
     }
 
     public DetalleOrdenDTO buscarPorId(Integer id){
-
+        log.info("Buscando por detalles por ID: {}", id);
         DetalleOrden detalle = detalleOrdenRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Detalle no encontrado"));
+                .orElseThrow(() ->  {
+                    log.error("ERROR: No se encontro el detalle con ID: {}", id);
+                    return new RuntimeException("Detalle no encontrado");
+                });
 
         return convertirADTO(detalle);
     }
 
     public DetalleOrden guardar(DetalleOrden detalle){
-
+        log.info("Guardando un nuevo detalle...");
         return detalleOrdenRepository.save(detalle);
     }
 

@@ -13,6 +13,8 @@ import com.example.techstore.DTO.CarritoDetalleDTO;
 import com.example.techstore.model.CarritoDetalle;
 import com.example.techstore.service.CarritoDetalleService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/carrito-detalle")
 public class CarritoDetalleController {
@@ -33,7 +35,7 @@ public class CarritoDetalleController {
     }
 
     @PostMapping
-    public ResponseEntity<?> guardarDetalle(@RequestBody CarritoDetalle detalle){
+    public ResponseEntity<?> guardarDetalle(@Valid @RequestBody CarritoDetalle detalle){
 
         try{
 

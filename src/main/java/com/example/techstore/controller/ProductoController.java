@@ -15,6 +15,8 @@ import com.example.techstore.DTO.ProductoDTO;
 import com.example.techstore.model.Producto;
 import com.example.techstore.service.TechService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/productos")
 public class ProductoController {
@@ -53,7 +55,7 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> guardarProducto(@RequestBody ProductoDTO productoDTO){
+    public ResponseEntity<?> guardarProducto(@Valid @RequestBody ProductoDTO productoDTO){
 
         try{
 

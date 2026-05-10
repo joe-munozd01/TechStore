@@ -14,6 +14,8 @@ import com.example.techstore.DTO.CarritoDTO;
 import com.example.techstore.model.Carrito;
 import com.example.techstore.service.CarritoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/carritos")
 public class CarritoController {
@@ -49,7 +51,7 @@ public class CarritoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> guardarCarrito(@RequestBody Carrito carrito){
+    public ResponseEntity<?> guardarCarrito(@Valid @RequestBody Carrito carrito){
 
         try{
 

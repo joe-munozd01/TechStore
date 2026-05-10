@@ -6,15 +6,17 @@ import org.springframework.stereotype.Service;
 import com.example.techstore.DTO.UsuarioDTO;
 import com.example.techstore.model.Usuario;
 import com.example.techstore.repository.UsuarioRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
+    
     public List<UsuarioDTO> obtenerTodos(){
-
+        log.info("Consultando todos los usuarios en la base de datos");
         return usuarioRepository.findAll().stream()
                 .map(this::convertirADTO)
                 .toList();

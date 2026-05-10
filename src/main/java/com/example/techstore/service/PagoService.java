@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import com.example.techstore.DTO.PagoDTO;
 import com.example.techstore.model.Pago;
 import com.example.techstore.repository.PagoRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class PagoService {
 
@@ -14,22 +16,24 @@ public class PagoService {
     private PagoRepository pagoRepository;
 
     public List<PagoDTO> obtenerTodos(){
-
+        log.info("Buscando todos los pagos en la base de datos...");
         return pagoRepository.findAll().stream()
                 .map(this::convertirADTO)
                 .toList();
     }
 
     public PagoDTO buscarPorId(Integer id){
-
+        log.info("Buscando pago con el ID: {}", id);
         Pago pago = pagoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pago no encontrado"));
-
+                .orElseThrow(() -> {
+                    log.error("ERROR: El pago con ID {} no existe en la base de datos");
+                    return new RuntimeException("Pago no encontrado");
+                });
         return convertirADTO(pago);
     }
 
     public Pago guardar(Pago pago){
-
+        log.info("");
         return pagoRepository.save(pago);
     }
 

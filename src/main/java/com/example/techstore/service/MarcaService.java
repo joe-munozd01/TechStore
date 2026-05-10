@@ -9,14 +9,17 @@ import com.example.techstore.model.Marca;
 import com.example.techstore.model.Producto;
 import com.example.techstore.repository.MarcaRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class MarcaService {
 
     @Autowired
     private MarcaRepository marcaRepository;
-
+    
     public List<MarcaDTO> obtenerTodas() {
-
+        log.info("Buscando todas las marcas en la base de datos");
         return marcaRepository.findAll().stream()
             .map(this::convertirADTO)
             .toList();
@@ -26,12 +29,16 @@ public class MarcaService {
     public MarcaDTO buscarPorId(Integer id) {
 
         Marca marca = marcaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
+            .orElseThrow(() -> {
+                log.error("ERROR: No se encontro la marca por ID: {}", id);
+                return new RuntimeException("Marca no encontrada");
+            });
         
         return convertirADTO(marca);
     }
 
     public Marca guardar(Marca marca) {
+        log.info("Guardando una nueva marca...");
         return marcaRepository.save(marca);
     }
 

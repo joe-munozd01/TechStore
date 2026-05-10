@@ -13,6 +13,8 @@ import com.example.techstore.DTO.DetalleOrdenDTO;
 import com.example.techstore.model.DetalleOrden;
 import com.example.techstore.service.DetalleOrdenService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/detalle-orden")
 public class DetalleOrdenController {
@@ -33,7 +35,7 @@ public class DetalleOrdenController {
     }
 
     @PostMapping
-    public ResponseEntity<?> guardarDetalle(@RequestBody DetalleOrden detalle){
+    public ResponseEntity<?> guardarDetalle(@Valid @RequestBody DetalleOrden detalle){
 
         try{
 

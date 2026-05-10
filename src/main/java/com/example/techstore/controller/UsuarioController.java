@@ -14,6 +14,8 @@ import com.example.techstore.DTO.UsuarioDTO;
 import com.example.techstore.model.Usuario;
 import com.example.techstore.service.UsuarioService;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
@@ -50,7 +52,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> guardarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<?> guardarUsuario(@Valid @RequestBody Usuario usuario){
 
         try{
 

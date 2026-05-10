@@ -13,6 +13,8 @@ import com.example.techstore.DTO.PagoDTO;
 import com.example.techstore.model.Pago;
 import com.example.techstore.service.PagoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/pagos")
 public class PagoController {
@@ -33,7 +35,7 @@ public class PagoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> guardarPago(@RequestBody Pago pago){
+    public ResponseEntity<?> guardarPago(@Valid @RequestBody Pago pago){
 
         try{
 

@@ -7,6 +7,9 @@ import com.example.techstore.DTO.OrdenDTO;
 import com.example.techstore.model.Orden;
 import com.example.techstore.repository.OrdenRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class OrdenService {
 

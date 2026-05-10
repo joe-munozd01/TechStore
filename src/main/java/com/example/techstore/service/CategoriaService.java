@@ -9,6 +9,9 @@ import com.example.techstore.model.Categoria;
 import com.example.techstore.model.Producto;
 import com.example.techstore.repository.CategoriaRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class CategoriaService {
 
@@ -16,7 +19,7 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     public List<CategoriaDTO> obtenerTodas() {
-
+        log.info("Consultando todas las categorias en la base de datos");
         return categoriaRepository.findAll().stream()
             .map(this::convertirADTO)
             .toList();
@@ -24,16 +27,18 @@ public class CategoriaService {
     }
 
     public CategoriaDTO buscarPorId(Integer id) {
-
+        log.info("Buscando categoria por ID: {}", id);
         Categoria categoria = categoriaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
-        
+            .orElseThrow(() -> { 
+                log.error("ERROR: No se encontro la categoria por ID: {}", id);
+                return new RuntimeException("Categoria no encontrada");
+            });
         return convertirADTO(categoria);
 
     }
 
     public Categoria guardar(Categoria categoria) {
-
+        log.info("Guardando un nuevo producto...");
         return categoriaRepository.save(categoria);
     }
 

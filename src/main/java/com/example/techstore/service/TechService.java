@@ -10,7 +10,9 @@ import com.example.techstore.repository.CategoriaRepository;
 import com.example.techstore.repository.MarcaRepository;
 import com.example.techstore.repository.ProductoRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional
 public class TechService {
@@ -29,7 +31,7 @@ public class TechService {
     }
 
     public List<ProductoDTO> obtenerTodos(){
-
+        log.info("Consultando todos los productos en la base de datos");
         return productoRepository.findAll()
                 .stream()
                 .map(this::convertirADTO)
@@ -37,37 +39,51 @@ public class TechService {
     }
 
     public ProductoDTO buscarPorId(Integer id){
-
+        log.info("Buscando producto por ID: {}", id);
         Producto producto = productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+                .orElseThrow(() -> {
+                    log.error("ERROR: No se encontro el producto por ID: {}", id);
+                    return new RuntimeException("Producto no encontrado");
+                });
 
         return convertirADTO(producto);
     }
 
     public Producto guardaProducto(ProductoDTO productoDTO) {
+        log.info("Guardando un nuevo producto: {}", productoDTO.getNombre());
 
         Producto nuevoProducto = new Producto();
-
         nuevoProducto.setNombre(productoDTO.getNombre());
         nuevoProducto.setPrecio(productoDTO.getPrecio());
         nuevoProducto.setDescripcion(productoDTO.getDescripcion());
 
         Categoria categoriaEncontrada = categoriaRepository.findById(productoDTO.getIdCategoria())
-                .orElseThrow(() -> new RuntimeException("Error: La categoria no existe"));
+                .orElseThrow(() -> { 
+                    log.error("ERROR: Al guardar el producto, la categoria por ID {} no existe", productoDTO.getIdCategoria());
+                    return new RuntimeException("Error: La categoria no existe");
+                });
 
         Marca marcaEncontrada = marcaRepository.findById(productoDTO.getIdMarca())
-                .orElseThrow(() -> new RuntimeException("Error: La marca no existe"));
+                .orElseThrow(() -> { 
+                    log.error("ERROR: Al guardar el producto, la marca por ID {} no existe ", productoDTO.getIdMarca());
+                    return new RuntimeException("Error: La marca no existe");
+                });
 
         nuevoProducto.setCategoria(categoriaEncontrada);
         nuevoProducto.setMarca(marcaEncontrada);
 
+        log.info("Producto ensamblado correctamente. Guardando en la base de datos...");
         return productoRepository.save(nuevoProducto);
     }
 
     public Producto actualizarProducto(Integer id, Producto productoActualizado){
+        log.info("Iniciando actualizacion del producto por ID: {}", id);
 
         Producto producto = productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+                .orElseThrow(() -> { 
+                    log.error("ERROR: No se puede actualizar. El producto por ID {} no existe", id);
+                    return new RuntimeException("Producto no encontrado");
+                });
 
         if(productoActualizado.getNombre() != null){
             producto.setNombre(productoActualizado.getNombre());
@@ -81,22 +97,26 @@ public class TechService {
             producto.setPrecio(productoActualizado.getPrecio());
         }
 
+        log.info("Actualizacion exitosa para el producto por ID: {}", id);
         return productoRepository.save(producto);
     }
 
     public String eliminar(Integer id){
-
+        log.info("Intentando eliminar el producto por ID: {}", id);
         try{
 
             Producto producto = productoRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+                    .orElseThrow(() -> { 
+                        log.error("ERROR: No se puede eliminar. El producto por ID {} no existe", id);
+                        return new RuntimeException("Producto no encontrado");
+                    });
 
             productoRepository.delete(producto);
-
+            log.info("Producto por ID: {} eliminado correctamente", id);
             return "Producto eliminado correctamente";
 
         }catch(RuntimeException e){
-
+            log.error("Excepcion capturada al intentar eliminar: {}", e.getMessage());
             return e.getMessage();
         }
     }

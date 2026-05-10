@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import com.example.techstore.DTO.CarritoDetalleDTO;
 import com.example.techstore.model.CarritoDetalle;
 import com.example.techstore.repository.CarritoDetalleRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class CarritoDetalleService {
 
@@ -14,22 +16,25 @@ public class CarritoDetalleService {
     private CarritoDetalleRepository carritoDetalleRepository;
 
     public List<CarritoDetalleDTO> obtenerTodos(){
-
+        log.info("Consultando todos los detalles en la base de datos");
         return carritoDetalleRepository.findAll().stream()
                 .map(this::convertirADTO)
                 .toList();
     }
 
     public CarritoDetalleDTO buscarPorId(Integer id){
-
+        log.info("Buscando detalle por ID: {}", id);
         CarritoDetalle detalle = carritoDetalleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Detalle no encontrado"));
+                .orElseThrow(() -> {
+                    log.error("ERROR: No se encontro el detalle por ID: {}", id);
+                    return new RuntimeException("Detalle no encontrado");
+                });
 
         return convertirADTO(detalle);
     }
 
     public CarritoDetalle guardar(CarritoDetalle detalle){
-
+        log.info("Guardando un nuevo detalle...");
         return carritoDetalleRepository.save(detalle);
     }
 

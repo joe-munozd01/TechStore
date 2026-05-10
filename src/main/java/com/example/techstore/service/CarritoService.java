@@ -9,6 +9,9 @@ import com.example.techstore.model.Carrito;
 import com.example.techstore.model.CarritoDetalle;
 import com.example.techstore.repository.CarritoRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class CarritoService {
 
@@ -16,22 +19,26 @@ public class CarritoService {
     private CarritoRepository carritoRepository;
 
     public List<CarritoDTO> obtenerTodos(){
-
+        log.info("Consultando todos los carritos en la base de datos");
         return carritoRepository.findAll().stream()
                 .map(this::convertirADTO)
                 .toList();
     }
 
     public CarritoDTO buscarPorId(Integer id){
-
+        log.info("Buscando carrito por ID: {}", id);
         Carrito carrito = carritoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+                .orElseThrow(() ->  {
+                    log.error("ERROR: No se encontro el carrito por ID: {}", id);
+                    return new RuntimeException("Carrito no encontrado");
+
+                });
 
         return convertirADTO(carrito);
     }
 
     public Carrito guardar(Carrito carrito){
-
+        log.info("Guardando un nuevo producto...");
         return carritoRepository.save(carrito);
     }
 

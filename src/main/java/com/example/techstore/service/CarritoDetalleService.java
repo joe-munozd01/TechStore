@@ -37,11 +37,10 @@ public class CarritoDetalleService {
         log.info("Iniciando actualización del detalle de carrito ID: {}", id);
         CarritoDetalle detalle = carritoDetalleRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede actualizar. El detalle ID {} no existe", id);
+                    log.error("ERROR: No se puede actualizar. El detalle ID {} no existe", id);
                     return new RuntimeException("Detalle no encontrado");
                 });
 
-        // Generalmente solo permitimos actualizar la cantidad en el detalle
         if (detalleActualizado.getCantidad() != null) {
             detalle.setCantidad(detalleActualizado.getCantidad());
         }
@@ -54,7 +53,7 @@ public class CarritoDetalleService {
         log.info("Intentando eliminar el detalle de carrito ID: {}", id);
         CarritoDetalle detalle = carritoDetalleRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede eliminar. El detalle ID {} no existe", id);
+                    log.error("ERROR: No se puede eliminar. El detalle ID {} no existe", id);
                     return new RuntimeException("Detalle no encontrado");
                 });
         

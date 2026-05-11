@@ -34,6 +34,38 @@ public class DetalleOrdenService {
         return convertirADTO(detalle);
     }
 
+    public DetalleOrden actualizar(Integer id, DetalleOrden detalleActualizado) {
+        log.info("Iniciando actualizacion del detalle de orden con ID: {}", id);
+        DetalleOrden detalle = detalleOrdenRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("❌ ERROR: No se puede actualizar. El detalle de orden ID {} no existe", id);
+                    return new RuntimeException("Detalle de orden no encontrado");
+                });
+
+        if (detalleActualizado.getCantidad() != null) {
+            detalle.setCantidad(detalleActualizado.getCantidad());
+        }
+        if (detalleActualizado.getSubtotal() != null) {
+            detalle.setSubtotal(detalleActualizado.getSubtotal());
+        }
+
+        log.info("Detalle de orden ID: {} actualizado exitosamente", id);
+        return detalleOrdenRepository.save(detalle);
+    }
+
+    public String eliminar(Integer id) {
+        log.info("Intentando eliminar detalle de orden con ID: {}", id);
+        DetalleOrden detalle = detalleOrdenRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("❌ ERROR: No se puede eliminar. El detalle de orden ID {} no existe", id);
+                    return new RuntimeException("Detalle de orden no encontrado");
+                });
+        
+        detalleOrdenRepository.delete(detalle);
+        log.info("Detalle de orden ID: {} eliminado correctamente", id);
+        return "Detalle de orden eliminado correctamente";
+    }
+
     public DetalleOrden guardar(DetalleOrden detalle){
         log.info("Guardando un nuevo detalle...");
         return detalleOrdenRepository.save(detalle);

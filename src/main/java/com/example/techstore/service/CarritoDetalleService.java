@@ -33,6 +33,36 @@ public class CarritoDetalleService {
         return convertirADTO(detalle);
     }
 
+    public CarritoDetalle actualizar(Integer id, CarritoDetalle detalleActualizado) {
+        log.info("Iniciando actualización del detalle de carrito ID: {}", id);
+        CarritoDetalle detalle = carritoDetalleRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("❌ ERROR: No se puede actualizar. El detalle ID {} no existe", id);
+                    return new RuntimeException("Detalle no encontrado");
+                });
+
+        // Generalmente solo permitimos actualizar la cantidad en el detalle
+        if (detalleActualizado.getCantidad() != null) {
+            detalle.setCantidad(detalleActualizado.getCantidad());
+        }
+
+        log.info("Detalle de carrito ID: {} actualizado exitosamente", id);
+        return carritoDetalleRepository.save(detalle);
+    }
+
+    public String eliminar(Integer id) {
+        log.info("Intentando eliminar el detalle de carrito ID: {}", id);
+        CarritoDetalle detalle = carritoDetalleRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("❌ ERROR: No se puede eliminar. El detalle ID {} no existe", id);
+                    return new RuntimeException("Detalle no encontrado");
+                });
+        
+        carritoDetalleRepository.delete(detalle);
+        log.info("Detalle de carrito ID: {} eliminado correctamente", id);
+        return "Detalle eliminado correctamente";
+    }
+
     public CarritoDetalle guardar(CarritoDetalle detalle){
         log.info("Guardando un nuevo detalle...");
         return carritoDetalleRepository.save(detalle);

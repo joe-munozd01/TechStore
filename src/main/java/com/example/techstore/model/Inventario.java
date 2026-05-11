@@ -1,17 +1,15 @@
 package com.example.techstore.model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,23 +18,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ordenes")
-public class Orden {
+@Table(name = "inventarios")
+public class Inventario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Min(value = 0, message = "El stock no puede ser negativo")
     @Column(nullable = false)
-    private Integer total;
+    private Integer stock;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @Min(value = 0, message = "El stock mínimo no puede ser negativo")
+    @Column(nullable = false)
+    private Integer stockMinimo;
 
-    @OneToMany(mappedBy = "orden")
-    private List<DetalleOrden> detalles;
+    @NotBlank(message = "La ubicación es obligatoria")
+    @Column(nullable = false, length = 100)
+    private String ubicacion;
 
-    @OneToOne(mappedBy = "orden")
-    private Pago pago;
+    @OneToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 }
+

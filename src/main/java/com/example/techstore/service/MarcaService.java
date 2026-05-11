@@ -37,6 +37,34 @@ public class MarcaService {
         return convertirADTO(marca);
     }
 
+    public Marca actualizar(Integer id, Marca marcaActualizada) {
+        log.info("Iniciando actualizacion de la marca con ID: {}", id);
+        Marca marca = marcaRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("❌ ERROR: No se puede actualizar. Marca ID {} no existe", id);
+                    return new RuntimeException("Marca no encontrada");
+                });
+
+        if(marcaActualizada.getNombre() != null){
+            marca.setNombre(marcaActualizada.getNombre());
+        }
+
+        log.info("Marca ID: {} actualizada exitosamente", id);
+        return marcaRepository.save(marca);
+    }
+
+    public String eliminar(Integer id) {
+        log.info("Intentando eliminar marca con ID: {}", id);
+        Marca marca = marcaRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("❌ ERROR: No se puede eliminar. Marca ID {} no existe", id);
+                    return new RuntimeException("Marca no encontrada");
+                });
+        marcaRepository.delete(marca);
+        log.info("Marca ID: {} eliminada correctamente", id);
+        return "Marca eliminada correctamente";
+    }
+
     public Marca guardar(Marca marca) {
         log.info("Guardando una nueva marca...");
         return marcaRepository.save(marca);

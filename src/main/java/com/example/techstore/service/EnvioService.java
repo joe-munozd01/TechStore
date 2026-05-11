@@ -32,6 +32,43 @@ public class EnvioService {
         return convertirADTO(envio);
     }
 
+    public Envio actualizar(Integer id, Envio envioActualizado) {
+        log.info("Iniciando actualizacion del envio con ID: {}", id);
+        Envio envio = envioRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("❌ ERROR: No se puede actualizar. Envio ID {} no existe", id);
+                    return new RuntimeException("Envio no encontrado");
+                });
+
+        if(envioActualizado.getDireccion() != null) {
+            envio.setDireccion(envioActualizado.getDireccion());
+        }
+        if(envioActualizado.getEstado() != null) {
+            envio.setEstado(envioActualizado.getEstado());
+        }
+        if(envioActualizado.getCodigoSeguimiento() != null) {
+            envio.setCodigoSeguimiento(envioActualizado.getCodigoSeguimiento());
+        }
+        if(envioActualizado.getOrden() != null) {
+            envio.setOrden(envioActualizado.getOrden());
+        }
+
+        log.info("Envio ID: {} actualizado exitosamente", id);
+        return envioRepository.save(envio);
+    }
+
+    public String eliminar(Integer id) {
+        log.info("Intentando eliminar envio con ID: {}", id);
+        Envio envio = envioRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("❌ ERROR: No se puede eliminar. Envio ID {} no existe", id);
+                    return new RuntimeException("Envio no encontrado");
+                });
+        envioRepository.delete(envio);
+        log.info("Envio ID: {} eliminado correctamente", id);
+        return "Envio eliminado correctamente";
+    }
+
     public Envio guardar(Envio envio) {
         log.info("Guardando nuevo envio con código de seguimiento: {}", envio.getCodigoSeguimiento());
         return envioRepository.save(envio);

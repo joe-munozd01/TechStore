@@ -37,6 +37,36 @@ public class CarritoService {
         return convertirADTO(carrito);
     }
 
+    public Carrito actualizar(Integer id, Carrito carritoActualizado) {
+        log.info("Ïniciando actualizaciond el carrito por ID: {}", id);
+        Carrito carrito = carritoRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("ERROR: No se puede actualizar. Carrito ID {} no existe", id);
+                    return new RuntimeException("Carrito no encontrado");
+                });
+        if(carritoActualizado.getUsuario() != null) {
+            carrito.setUsuario(carritoActualizado.getUsuario());
+        }
+        
+        log.info("Carrito ID: {} actualizado exitosamente");
+        return carritoRepository.save(carrito);
+    }
+
+    public String eliminar (Integer id) {
+        log.info("Intentado eliminar carrito con ID: {}", id);
+        Carrito carrito = carritoRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("ERROR: No se puede eliminar. Carrito ID {} no existe", id);
+                    return new RuntimeException("Carrito no encontrado");
+                });
+        
+        carritoRepository.delete(carrito);
+        log.info("Carrito ID: {} eliminado correctamente", id);
+        return "Carrito eliminado correctamente";
+    }
+
+
+
     public Carrito guardar(Carrito carrito){
         log.info("Guardando un nuevo producto...");
         return carritoRepository.save(carrito);

@@ -23,7 +23,7 @@ public class ProductoService {
     }
 
     public ProductoDTO buscarPorId(Integer id) {
-
+        log.info("Buscando producto por el ID {}", id);
         Producto producto = productoRepository.findById(id)
             .orElseThrow(() -> {
                 log.error("ERROR: No se encontro el producto por ID: {}", id);

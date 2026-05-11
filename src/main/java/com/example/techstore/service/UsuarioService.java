@@ -33,6 +33,32 @@ public class UsuarioService {
         return convertirADTO(usuario);
     }
 
+    public Usuario actualizar(Integer id, Usuario datosActualizados) {
+        log.info("Iniciando actualizacion del usuario por el ID {}", id);
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("ERROR: No se puede actualizar. Usuario ID {} no existe", id);
+                    return new RuntimeException("Usuario no encontrado");
+                });
+        if(datosActualizados.getNombre() != null) usuario.setNombre(datosActualizados.getNombre());
+        if(datosActualizados.getCorreo() != null) usuario.setCorreo(datosActualizados.getCorreo());
+
+        log.info("Usuario ID: {} Actualizado exitosamente", id);
+        return usuarioRepository.save(usuario);
+    }
+
+    public String eliminar(Integer id) {
+        log.info("Intentado eliminar usuario con ID: {}", id);
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("ERROR: No se puede eliminar. Usuario ID {} no existe", id);
+                    return new RuntimeException("Usuario no encontrado");
+                });
+        usuarioRepository.delete(usuario);
+        log.info("Usuario ID: {} eliminado correctamente", id);
+        return "Usuario eliminado correctamente";
+    }
+
     public Usuario guardar(Usuario usuario){
         log.info("Guardando un nuevo usuario...");
         return usuarioRepository.save(usuario);

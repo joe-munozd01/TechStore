@@ -38,7 +38,7 @@ public class DetalleOrdenService {
         log.info("Iniciando actualizacion del detalle de orden con ID: {}", id);
         DetalleOrden detalle = detalleOrdenRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede actualizar. El detalle de orden ID {} no existe", id);
+                    log.error("ERROR: No se puede actualizar. El detalle de orden ID {} no existe", id);
                     return new RuntimeException("Detalle de orden no encontrado");
                 });
 
@@ -57,7 +57,7 @@ public class DetalleOrdenService {
         log.info("Intentando eliminar detalle de orden con ID: {}", id);
         DetalleOrden detalle = detalleOrdenRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede eliminar. El detalle de orden ID {} no existe", id);
+                    log.error("ERROR: No se puede eliminar. El detalle de orden ID {} no existe", id);
                     return new RuntimeException("Detalle de orden no encontrado");
                 });
         

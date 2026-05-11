@@ -41,7 +41,7 @@ public class CategoriaService {
         log.info("Iniciando actualizacion de la categoria con ID: {}", id);
         Categoria categoria = categoriaRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede actualizar. Categoria ID {} no existe", id);
+                    log.error("ERROR: No se puede actualizar. Categoria ID {} no existe", id);
                     return new RuntimeException("Categoria no encontrada");
                 });
 
@@ -57,7 +57,7 @@ public class CategoriaService {
         log.info("Intentando eliminar categoria con ID: {}", id);
         Categoria categoria = categoriaRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede eliminar. Categoria ID {} no existe", id);
+                    log.error("ERROR: No se puede eliminar. Categoria ID {} no existe", id);
                     return new RuntimeException("Categoria no encontrada");
                 });
         categoriaRepository.delete(categoria);

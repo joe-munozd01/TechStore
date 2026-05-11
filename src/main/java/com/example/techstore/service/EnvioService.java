@@ -36,7 +36,7 @@ public class EnvioService {
         log.info("Iniciando actualizacion del envio con ID: {}", id);
         Envio envio = envioRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede actualizar. Envio ID {} no existe", id);
+                    log.error("ERROR: No se puede actualizar. Envio ID {} no existe", id);
                     return new RuntimeException("Envio no encontrado");
                 });
 
@@ -61,7 +61,7 @@ public class EnvioService {
         log.info("Intentando eliminar envio con ID: {}", id);
         Envio envio = envioRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede eliminar. Envio ID {} no existe", id);
+                    log.error("ERROR: No se puede eliminar. Envio ID {} no existe", id);
                     return new RuntimeException("Envio no encontrado");
                 });
         envioRepository.delete(envio);

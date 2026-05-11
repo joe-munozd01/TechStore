@@ -41,7 +41,7 @@ public class MarcaService {
         log.info("Iniciando actualizacion de la marca con ID: {}", id);
         Marca marca = marcaRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede actualizar. Marca ID {} no existe", id);
+                    log.error("ERROR: No se puede actualizar. Marca ID {} no existe", id);
                     return new RuntimeException("Marca no encontrada");
                 });
 
@@ -57,7 +57,7 @@ public class MarcaService {
         log.info("Intentando eliminar marca con ID: {}", id);
         Marca marca = marcaRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error("❌ ERROR: No se puede eliminar. Marca ID {} no existe", id);
+                    log.error("ERROR: No se puede eliminar. Marca ID {} no existe", id);
                     return new RuntimeException("Marca no encontrada");
                 });
         marcaRepository.delete(marca);

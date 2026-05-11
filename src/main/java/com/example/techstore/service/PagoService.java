@@ -7,6 +7,7 @@ import com.example.techstore.DTO.PagoDTO;
 import com.example.techstore.model.Pago;
 import com.example.techstore.repository.PagoRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Slf4j
 @Service
@@ -64,7 +65,25 @@ public class PagoService {
     }
 
     public Pago guardar(Pago pago){
-        log.info("Guardando un nuevo pago...");
+        log.info("Procesando un nuevo pago con método: {}", pago.getMetodoPago());
+
+        try {
+            log.info("Consultando valor actual del Dólar en mindicador.cl...");
+            WebClient webClient = WebClient.create("https://mindicador.cl/api");
+            
+            String respuestaApi = webClient.get()
+                    .uri("/dolar")
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            
+            log.info("Dólar consultado exitosamente: {}", respuestaApi.substring(0, 100) + "...");
+            
+        } catch (Exception e) {
+            log.warn("No se pudo consultar la API del dólar, pero el pago continuará. Error: {}", e.getMessage());
+        }
+
+        log.info("Guardando pago en la base de datos...");
         return pagoRepository.save(pago);
     }
 

@@ -49,7 +49,7 @@ public class TechService {
         return convertirADTO(producto);
     }
 
-    public Producto guardaProducto(ProductoDTO productoDTO) {
+    public Producto guardarProducto(ProductoDTO productoDTO) {
         log.info("Guardando un nuevo producto: {}", productoDTO.getNombre());
 
         Producto nuevoProducto = new Producto();

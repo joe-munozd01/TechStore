@@ -59,7 +59,7 @@ public class ProductoController {
 
         try{
 
-            return new ResponseEntity<>(techService.guardaProducto(productoDTO), HttpStatus.CREATED);
+            return new ResponseEntity<>(techService.guardarProducto(productoDTO), HttpStatus.CREATED);
 
         }catch(RuntimeException e){
 
